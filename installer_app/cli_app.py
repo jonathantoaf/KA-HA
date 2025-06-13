@@ -11,6 +11,7 @@ from installer_app.core.logger import logger
 class InstallerType(str, Enum):
     pip = "pip"
     brew = "brew"
+    docker = "docker"
 
 
 app = typer.Typer(
@@ -121,11 +122,20 @@ def list_packages():
             for pkg, versions in brew_packages.items():
                 typer.echo(f"  • {pkg}: allowed versions = {versions}")
 
-        if not pip_packages and not brew_packages:
-            typer.echo("❌ No allowed packages configured in config.yaml")
+        # Display Docker packages
+        docker_config = config.get("docker", {})
+        docker_packages = docker_config.get("allowed_packages", {})
+
+        if docker_packages:
+            typer.echo("\n🐳 DOCKER Packages:")
+            for pkg, versions in docker_packages.items():
+                typer.echo(f"  • {pkg}: allowed versions = {versions}")
+
+        if not pip_packages and not brew_packages and not docker_packages:
+            typer.echo("❌ No allowed packages configured")
         else:
             typer.echo(
-                f"\n📋 Total packages: {len(pip_packages)} pip, {len(brew_packages)} brew"
+                f"\n📋 Total packages: {len(pip_packages)} pip, {len(brew_packages)} brew, {len(docker_packages)} docker"
             )
 
     except FileNotFoundError:

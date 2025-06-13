@@ -1,12 +1,13 @@
 from installer_app.installers.pip_installer import PipInstaller
 from installer_app.installers.brew_installer import BrewInstaller
+from installer_app.installers.docker_installer import DockerInstaller
 from installer_app.core.installer import Installer
 from installer_app.core.config import load_config
 from typing import Optional
 
 
 class InstallerFactory:
-    installers = {"pip": PipInstaller, "brew": BrewInstaller}
+    installers = {"pip": PipInstaller, "brew": BrewInstaller, "docker": DockerInstaller}
 
     @staticmethod
     def create_installer(

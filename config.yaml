@@ -25,3 +25,25 @@ brew:
   allowed_packages:
     node: ["latest"]
     python: ["latest"]
+
+docker:
+  allowed_packages:
+    openwebui: ["latest", "0.1.124", "0.1.123"]
+    nginx: ["latest", "1.25", "1.24"]
+  configurations:
+    openwebui:
+      image: "ghcr.io/open-webui/open-webui"
+      ports:
+        "3000": "8080"
+      environment:
+        OLLAMA_BASE_URL: "https://api.openai.com/v1"
+      volumes:
+        "open-webui": "/app/backend/data"
+      restart: "always"
+      access_url: "http://localhost:3000"
+    nginx:
+      image: "nginx"
+      ports:
+        "80": "80"
+      restart: "always"
+      access_url: "http://localhost:80"
