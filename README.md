@@ -94,7 +94,7 @@ installer uninstall pip requests
 
 #### Homebrew Packages
 ```bash
-# Install Node.js
+# Install htop using Homebrew
 installer install brew htop
 
 # Check status
@@ -148,8 +148,8 @@ pip:
 
 brew:
   allowed_packages:
-    node: ["latest"]
-    python: ["latest"]
+    htop: ["latest"]  
+    bat: ["latest"]
 
 docker:
   allowed_packages:
@@ -185,19 +185,19 @@ installer list
 installer install pip requests --version latest
 
 # 3. Install a system package
-installer install brew node
+installer install brew htop
 
 # 4. Run a Docker container
 installer install docker nginx
 
 # 5. Check all statuses
 installer status pip requests
-installer status brew node
+installer status brew htop
 installer status docker nginx
 
 # 6. Clean up
 installer uninstall pip requests
-installer uninstall brew node
+installer uninstall brew htop
 installer uninstall docker nginx
 ```
 
