@@ -2,17 +2,17 @@ from typing import Optional
 
 import typer
 
-from installer_app.constants import (
+from installer_app.utils.constants import (
     Config,
     Emoji,
     PackageInfo,
     PackageType,
     CommandResult,
 )
+from installer_app.utils.exceptions import PackageInstallerError
 from installer_app.core.config import load_config
 from installer_app.core.factory import InstallerFactory
 from installer_app.core.logger import logger
-from installer_app.installers.package_installer import PackageInstallerError
 
 
 app = typer.Typer(

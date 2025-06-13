@@ -1,7 +1,7 @@
 from installer_app.core.installer import Installer
 from typing import Dict, Any, Optional
 from installer_app.core.logger import logger
-from installer_app.constants import CommandResult
+from installer_app.utils.constants import CommandResult
 import subprocess
 
 

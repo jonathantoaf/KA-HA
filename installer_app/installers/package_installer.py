@@ -2,15 +2,10 @@ import subprocess
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 
-from installer_app.constants import CommandResult
+from installer_app.utils.constants import CommandResult
+from installer_app.utils.exceptions import PackageInstallerError
 from installer_app.core.installer import Installer
 from installer_app.core.logger import logger
-
-
-class PackageInstallerError(Exception):
-    """Custom exception for package installer errors."""
-
-    pass
 
 
 class PackageInstaller(Installer, ABC):
