@@ -23,8 +23,8 @@ pip:
 
 brew:
   allowed_packages:
-    node: ["latest"]
-    python: ["latest"]
+    htop: ["latest"]  
+    bat: ["latest"]
 
 docker:
   allowed_packages:
