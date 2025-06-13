@@ -1,6 +1,7 @@
 from installer_app.core.installer import Installer
 from typing import Dict, Any, Optional
 from installer_app.core.logger import logger
+from installer_app.constants import CommandResult
 import subprocess
 
 
@@ -63,14 +64,14 @@ class DockerInstaller(Installer):
                     elif "Status:" in line:
                         logger.info(f"📋 {line}")
 
-            if process.poll() == 0:
+            if process.poll() == CommandResult.SUCCESS:
                 logger.info(f"✅ Successfully pulled image: {image}")
             else:
                 raise subprocess.CalledProcessError(
                     process.poll(), ["docker", "pull", image]
                 )
 
-        except subprocess.CalledProcessError as e:
+        except subprocess.CalledProcessError:
             logger.error(f"❌ Failed to pull image: {image}")
             raise
         except KeyboardInterrupt:
@@ -81,9 +82,15 @@ class DockerInstaller(Installer):
         cmd = ["docker", "run", "-d", "--name", self.container_name]
 
         config_handlers = {
-            "ports": lambda items: [f"-p{host}:{container}" for host, container in items.items()],
-            "environment": lambda items: [f"-e{key}={value}" for key, value in items.items()],
-            "volumes": lambda items: [f"-v{volume}:{mount}" for volume, mount in items.items()],
+            "ports": lambda items: [
+                f"-p{host}:{container}" for host, container in items.items()
+            ],
+            "environment": lambda items: [
+                f"-e{key}={value}" for key, value in items.items()
+            ],
+            "volumes": lambda items: [
+                f"-v{volume}:{mount}" for volume, mount in items.items()
+            ],
             "restart": lambda value: [f"--restart={value}"],
         }
 
@@ -95,7 +102,6 @@ class DockerInstaller(Installer):
         return cmd
 
     def install(self) -> None:
-        self._validate_package()
         config = self._get_docker_config()
         image = f"{config['image']}:{self.version}"
 

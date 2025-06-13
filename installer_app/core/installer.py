@@ -1,5 +1,15 @@
 from abc import ABC, abstractmethod
-from typing import Dict, List, Optional
+from functools import wraps
+from typing import Callable, Dict, List, Optional
+
+
+def validate_package(func: Callable) -> Callable:
+    @wraps(func)
+    def wrapper(self: "Installer", *args, **kwargs):
+        self._validate_package()
+        return func(self, *args, **kwargs)
+
+    return wrapper
 
 
 class Installer(ABC):
@@ -26,13 +36,16 @@ class Installer(ABC):
             )
 
     @abstractmethod
+    @validate_package
     def install(self) -> None:
         pass
 
     @abstractmethod
+    @validate_package
     def uninstall(self) -> None:
         pass
 
     @abstractmethod
+    @validate_package
     def status(self) -> bool:
         pass
