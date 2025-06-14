@@ -5,6 +5,7 @@
 ## 📋 Table of Contents
 
 - [Features](#-features)
+- [Future Improvements](#-future-improvements)
 - [Installation](#-installation)
 - [Usage](#️-usage)
 - [Configuration](#️-configuration)
@@ -21,6 +22,15 @@
 - **Real-time feedback**: Progress indicators for Docker image pulls
 - **Status monitoring**: Check installation status of packages
 - **Safe operations**: Validates packages against whitelist before installation
+
+## 🔮 Future Improvements
+
+- **Rich CLI UI**: Upgrade output with rich for colorful tables, spinners, and improved user experience.
+- **Automated Testing**: Add unit and integration tests using pytest to cover all installer flows.
+- **CI/CD Pipeline**: Set up GitHub Actions to run linting and tests on every push or PR.
+- **Extended Commands**: Support upgrade, reinstall, list-installed.
+- **More Package Managers**: Add support for apt or winget for wider OS compatibility.
+- **OS-Aware Execution**: Automatically detect the OS and disable incompatible installers (e.g., block brew on Windows).
 
 ## 📦 Installation
 
